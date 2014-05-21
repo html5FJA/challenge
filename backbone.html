@@ -54,12 +54,34 @@
           }
         });
 
-// FeaturedGroup to contain subsets of articles
-// Subsets of articles include main, aside, opinion, travel
-// Containing model of a collection
+        // FeaturedGroup to contain subsets of articles
+        // Subsets of articles include main, aside, opinion, travel
+        // Containing model of a collection
 
         var FeaturedGroup = Backbone.Model.extend({
           url: "http://html5news.herokuapp.com/articles/featured/",
+
+          initialize : function () {
+            this.main = new ArticlesCollection();
+            this.aside = new ArticlesCollection();
+            this.opinion = new ArticlesCollection();
+            this.travel = new ArticlesCollection();
+
+            this.on( "change", this.fetchCollections, this );
+          },
+
+          fetchCollections : function(){
+            this.main.reset ( this.get("main"));
+            this.aside.reset ( this.get( "aside" ));
+            this.opinion.reset ( this.get( "opinion" ));
+            this.travel.reset ( this.get( "travel" ));
+          }
+        });
+
+        // Contains subsets of articles
+        // Includes main, aside
+        var CategoryGroup = Backbone.Model.extend({
+          url: "http://html5news.herokuapp.com/articles/category/1",
 
           initialize : function () {
             this.main = new ArticlesCollection();
@@ -71,7 +93,6 @@
           fetchCollections : function(){
             this.main.reset ( this.get("main"));
             this.aside.reset ( this.get( "aside" ));
-
           }
         });
 
@@ -153,9 +174,10 @@
         });
 
         var CategoryView = Backbone.View.extend({
-          tagName   : 'p',
+          tagName   : 'div',
           template   : null,
           events     : {
+            "click .button" : "buttonClickHandler"
           },
 
           initialize : function(){
@@ -164,12 +186,16 @@
             _.bindAll(this);
 
             //later we will see complex template engines, but is the basic from underscore
-            this.template = _.template('<strong><%= displayName %></strong>');
+            this.template = _.template('<strong><a class="button"><%= displayName %></a></strong>');
 
           },
           render : function(){
             $(this.el).html( this.template( this.model.toJSON() ) );
             return this;
+          },
+          buttonClickHandler : function(event){
+            alert( $(event.currentTarget).text() );
+            return false;
           }
         });
 
@@ -334,6 +360,55 @@
           }
         });
 
+        var CategoryGroupView = Backbone.View.extend({
+          id         : "categoryGroup-id",
+          //because it is a list we define the tag as ul
+          tagName     : "ul",
+          className     : "categoryGroup",
+
+          events : {
+          },
+
+          initialize : function(){
+            //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
+            //Read more here: http://documentcloud.github.com/underscore/#bindAll
+            _.bindAll(this);
+            //this.collection.bind('add', this.addItemHandler);
+
+          },
+
+          load : function(){
+            //here we do the AJAX Request to get our json file, also provide a success and error callbacks
+            this.render();
+
+          },
+
+          loadCompleteHandler : function(){
+            console.log('Awesome everything was loaded without errors!');
+            this.render();
+          },
+
+          errorHandler : function(){
+            throw "Error loading JSON file";
+          },
+
+          render : function(){
+
+            var aModel;
+            for (var i=0; i < this.collection.length; i++) {
+              aModel = this.collection.models[i];
+              var myArticleView = new ArticleView({model:aModel});
+              myArticleView.render();
+              $(this.el).append(myArticleView.el);
+            }
+
+            //we assign our element into the available dom element
+            $('#main').append($(this.el));
+
+            return this;
+          }
+        });
+
 
 //
 // Executing code
@@ -348,8 +423,20 @@
             agv1.load();
             var agv2 = new ArticleGroupView({collection: ag.aside});
             agv2.load();
+            //Put opinion and travel here.
           }}
           );
+
+        var cg = new CategoryGroup();
+        cg.fetch(
+        {success: function() {
+          var cg1 = new CategoryGroupView({collection: cg.main});
+          cg1.load();
+          var cg2 = new CategoryGroupView({collection: cg.aside});
+          cg2.load();
+        }}
+        );
+
         var bCollection = new BannersCollection();
         var bcv = new BannerColView({collection: bCollection});
         bcv.load();
