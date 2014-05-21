@@ -82,13 +82,11 @@
         // Includes main, aside
         var CategoryGroup = Backbone.Model.extend({
 
-          //url: this.options.id,
-
           initialize : function (options) {
             this.main = new ArticlesCollection();
             this.aside = new ArticlesCollection();
 
-            console.log(this.options.urlVal);
+            this.url = options.urlVal;
             
             this.on( "change", this.fetchCollections, this );
           },
@@ -196,6 +194,7 @@
             $(this.el).html( this.template( this.model.toJSON() ) );
             return this;
           },
+
           buttonClickHandler : function(event){
             //alert( $(event.currentTarget).text() );
             $('#main').empty();
@@ -211,7 +210,7 @@
             }}
             );  
             return false;
-          }
+          },
         });
 
         //We define the collection, associate the map for every item in the list
