@@ -81,12 +81,15 @@
         // Contains subsets of articles
         // Includes main, aside
         var CategoryGroup = Backbone.Model.extend({
-          url: "http://html5news.herokuapp.com/articles/category/1",
 
-          initialize : function () {
+          //url: this.options.id,
+
+          initialize : function (options) {
             this.main = new ArticlesCollection();
             this.aside = new ArticlesCollection();
 
+            console.log(this.options.urlVal);
+            
             this.on( "change", this.fetchCollections, this );
           },
 
@@ -194,7 +197,19 @@
             return this;
           },
           buttonClickHandler : function(event){
-            alert( $(event.currentTarget).text() );
+            //alert( $(event.currentTarget).text() );
+            $('#main').empty();
+            var id = this.model.get("id");
+            var aURL = "http://html5news.herokuapp.com/articles/category/" + id;
+            var cg = new CategoryGroup({urlVal : aURL});
+            cg.fetch(
+            {success: function() {
+              var cg1 = new CategoryGroupView({collection: cg.main});
+              cg1.load();
+              var cg2 = new CategoryGroupView({collection: cg.aside});
+              cg2.load();
+            }}
+            );  
             return false;
           }
         });
@@ -426,16 +441,6 @@
             //Put opinion and travel here.
           }}
           );
-
-        var cg = new CategoryGroup();
-        cg.fetch(
-        {success: function() {
-          var cg1 = new CategoryGroupView({collection: cg.main});
-          cg1.load();
-          var cg2 = new CategoryGroupView({collection: cg.aside});
-          cg2.load();
-        }}
-        );
 
         var bCollection = new BannersCollection();
         var bcv = new BannerColView({collection: bCollection});
