@@ -1,21 +1,114 @@
 html{
+	width: 960px;
 	font-family: Arvo;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-#header#topNav{ 
+body{
+	width: 960px;
+}
+
+/* -------- header ---------*/
+#header #topNav ul{
+	padding-left: 0px;
+}
+
+#header #topNav ul li{ 
 	font-size: 9pt;
 	color: #cccccc;
-	 }
-#header#title{
+	list-style-type: none;
+	display: inline;
+	}
+	
+#header i{
+	color: black;
+	font-size: 12pt;
+}
+	
+#user{
+	float: right;
+}
+
+
+#sections{
+	padding-right: 15px;
+}
+	
+#header #title{
 	font-size: 36pt;
 	font-weight: bold;
 	color: #333333;
+	border-top: 1px #cccccc solid;
+	border-bottom: 1px #cccccc solid;
+	padding-bottom: 10px;
+	text-align: center;
+	line-height: 0px;
 }
-#header#date{
+
+#header #title time{
+	text-align: center;
+	line-height: normal;
+}
+
+#header #date{
 	font-size: 14pt;
 	color: #333333;
 }
 .categories{
 	font-size: 14pt;
 	color: #333333;
+	text-decoration: none;
+	text-align: center;
+	
+}
+
+.categories a{
+	text-decoration: none;
+	color: #333333;
+	padding: 23px;
+}
+/*------------ main ------------*/
+
+#banner{
+	background-color: #cccccc
+}
+
+#cta{
+	color: white;
+	text-align: right;
+}
+
+#bannerText{
+	text-align: center;
+	padding-bottom: 35px;
+}
+
+aside{
+	width: 192px;
+	float: left
+}
+
+#aside1{
+	background-color: red;
+}
+
+#aside2{
+	background-color: blue;
+}
+
+#mainSection{
+	width: 384px;
+	float: left;
+	background-color: pink;
+}
+
+#rightSection{
+	width: 384px;
+	float: right;
+	background-color: green;
+}
+
+#opinion{
+	
 }
