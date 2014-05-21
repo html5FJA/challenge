@@ -82,6 +82,14 @@
           }
         });
 
+         var CategoryModel = Backbone.Model.extend({
+          defaults : {
+            id : '',
+            shortName : '',
+            displayName : ''
+          }
+         });
+
 //
 //
 //
@@ -93,6 +101,11 @@
         var BannersCollection = Backbone.Collection.extend({
           model: BannerModel,
           url: 'http://html5news.herokuapp.com/banners'
+        });
+
+        var CategoryCollection = Backbone.Collection.extend({
+          model: CategoryModel,
+          url: 'http://html5news.herokuapp.com/articles/categories'
         });
 
 //
@@ -116,8 +129,6 @@
             $(this.el).html( this.template( this.model.toJSON() ) );
             return this;
           }
-
-
         });
 
         var BannerView = Backbone.View.extend({
@@ -133,6 +144,27 @@
 
             //later we will see complex template engines, but is the basic from underscore
             this.template = _.template('<span>Name: <strong><%= id%></strong> - <%= message %> </span>');
+
+          },
+          render : function(){
+            $(this.el).html( this.template( this.model.toJSON() ) );
+            return this;
+          }
+        });
+
+        var CategoryView = Backbone.View.extend({
+          tagName   : 'p',
+          template   : null,
+          events     : {
+          },
+
+          initialize : function(){
+            //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
+            //Read more here: http://documentcloud.github.com/underscore/#bindAll
+            _.bindAll(this);
+
+            //later we will see complex template engines, but is the basic from underscore
+            this.template = _.template('<strong><%= displayName %></strong>');
 
           },
           render : function(){
@@ -175,8 +207,6 @@
           //we arrived here one time per item in our list, so if we received 4 items we
           //will arrive into this function 4 times
           addItemHandler : function(model){
-            //model is an instance of RealWorldItemModel
-
             var myItemView = new BannerView({model:model});
             myItemView.render();
             $(this.el).append(myItemView.el);
@@ -200,13 +230,8 @@
             return this;
           }
         });
-        //Backbone code - end
-
-
 
         // ARTICLE VIEW
-        //
-        //
         var ArticleGroupView = Backbone.View.extend({
           id         : "article-id",
           //because it is a list we define the tag as ul
@@ -220,24 +245,13 @@
             //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
             //Read more here: http://documentcloud.github.com/underscore/#bindAll
             _.bindAll(this);
-            this.collection.bind('add', this.addItemHandler);
+            //this.collection.bind('add', this.addItemHandler);
 
           },
 
           load : function(){
             //here we do the AJAX Request to get our json file, also provide a success and error callbacks
             this.render();
-
-          },
-
-          //we arrived here one time per item in our list, so if we received 4 items we
-          //will arrive into this function 4 times
-          addItemHandler : function(model){
-            //model is an instance of RealWorldItemModel
-
-            var myArticleView = new ArticleView({model:model});
-            myArticleView.render();
-            $(this.el).append(myArticleView.el);
 
           },
 
@@ -267,6 +281,59 @@
           }
         });
 
+        var CategoryColView = Backbone.View.extend({
+          id         : "category-id",
+          //because it is a list we define the tag as ul
+          tagName     : "ul",
+          className     : "category",
+
+          events : {
+          },
+
+          initialize : function(){
+            //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
+            //Read more here: http://documentcloud.github.com/underscore/#bindAll
+            _.bindAll(this);
+            this.collection.bind('add', this.addItemHandler);
+          },
+
+          load : function(){
+
+            //here we do the AJAX Request to get our json file, also provide a success and error callbacks
+            this.collection.fetch({
+              add: true,
+              success: this.loadCompleteHandler,
+              error: this.errorHandler
+            });
+
+          },
+
+          //essentially hits for every model
+          addItemHandler : function(model){
+            //each model
+            var myItemView = new CategoryView({model:model});
+            myItemView.render();
+            $(this.el).append(myItemView.el);
+          },
+
+          loadCompleteHandler : function(){
+            console.log('Awesome everything was loaded without errors!');
+            this.render();
+          },
+
+          errorHandler : function(){
+            throw "Error loading JSON file";
+          },
+
+          render : function(){
+
+            //we assign our element into the available dom element
+            $('#main').append($(this.el));
+
+            return this;
+          }
+        });
+
 
 //
 // Executing code
@@ -274,20 +341,23 @@
 
 
         //We create the instance of our collection:
-        var myCollection = new BannersCollection();
         var ag = new FeaturedGroup();
         ag.fetch(
           {success: function() {
-            var display = new ArticleGroupView({collection: ag.main});
-            display.load();
-            var display2 = new ArticleGroupView({collection: ag.aside});
-            display2.load();
+            var agv1 = new ArticleGroupView({collection: ag.main});
+            agv1.load();
+            var agv2 = new ArticleGroupView({collection: ag.aside});
+            agv2.load();
           }}
           );
-        var test = new BannerColView({collection: myCollection});
-        test.load();
-
+        var bCollection = new BannersCollection();
+        var bcv = new BannerColView({collection: bCollection});
+        bcv.load();
+        var cCollection = new CategoryCollection();
+        var ccv = new CategoryColView({collection: cCollection});
+        ccv.load();
       })
+
 </script>
 </body>
 </html>
