@@ -1,0 +1,293 @@
+<html>
+<head>
+  <title>Backbone.js view!</title>
+</head>
+<body>
+
+  <div id="main">
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+
+  <script>
+    _.originalBindAll = _.bindAll;
+    _.bindAll = function (that) {
+      var funcs = Array.prototype.slice.call(arguments, 1),
+      validKeys = [], fn;
+      if (funcs.length == 0) {
+        for (var i in that) {
+          fn = that[i];
+          if (fn && typeof fn == "function" && (!fn.prototype || _.keys(fn.prototype).length == 0))
+            validKeys.push(i);
+        }
+        _.originalBindAll.apply(_, [that].concat(validKeys));
+      }
+      else
+        _.originalBindAll.apply(_, arguments);
+    };
+  </script>
+
+
+
+  <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+  <script>
+      //Generic code starting our view when document is ready http://api.jquery.com/ready/
+      $(function(){
+
+        //Backbone code - begin
+        //
+        // All Model Declarations (Article, Banner, FeaturedGroup)
+        //
+        var ArticleModel = Backbone.Model.extend({
+          defaults : {
+            id : '',
+            headLine : '',
+            snippet : '',
+            fullStory : '',
+            location : '',
+            nsfw : '',
+            category : '',
+            relatedArticleIds : ''
+          }
+        });
+
+// FeaturedGroup to contain subsets of articles
+// Subsets of articles include main, aside, opinion, travel
+// Containing model of a collection
+
+        var FeaturedGroup = Backbone.Model.extend({
+          url: "http://html5news.herokuapp.com/articles/featured/",
+
+          initialize : function () {
+            this.main = new ArticlesCollection();
+            this.aside = new ArticlesCollection();
+
+            this.on( "change", this.fetchCollections, this );
+          },
+
+          fetchCollections : function(){
+            this.main.reset ( this.get("main"));
+            this.aside.reset ( this.get( "aside" ));
+
+          }
+        });
+
+         var BannerModel = Backbone.Model.extend({
+          defaults : {
+            id   : '',
+            message   : ''
+          }
+        });
+
+//
+//
+//
+
+        var ArticlesCollection = Backbone.Collection.extend({
+          model : ArticleModel
+        });
+
+        var BannersCollection = Backbone.Collection.extend({
+          model: BannerModel,
+          url: 'http://html5news.herokuapp.com/banners'
+        });
+
+//
+// All of the views (Article, Banner, )
+//
+
+
+        var ArticleView = Backbone.View.extend({
+          tagName: 'li',
+          template: null,
+          events: {
+          },
+
+          initialize : function() {
+            _.bindAll(this);
+
+            this.template = _.template('<strong><%= id%> <%= headLine %></strong> <br> <%= snippet %> <br> <%= fullStory %> <br> <strong> <%= location %> </strong>');
+          },
+
+          render : function(){
+            $(this.el).html( this.template( this.model.toJSON() ) );
+            return this;
+          }
+
+
+        });
+
+        var BannerView = Backbone.View.extend({
+          tagName   : 'li',
+          template   : null,
+          events     : {
+          },
+
+          initialize : function(){
+            //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
+            //Read more here: http://documentcloud.github.com/underscore/#bindAll
+            _.bindAll(this);
+
+            //later we will see complex template engines, but is the basic from underscore
+            this.template = _.template('<span>Name: <strong><%= id%></strong> - <%= message %> </span>');
+
+          },
+          render : function(){
+            $(this.el).html( this.template( this.model.toJSON() ) );
+            return this;
+          }
+        });
+
+        //We define the collection, associate the map for every item in the list
+        //and define the url that fetch will be using to load remote data
+        //Main View for the list
+        var BannerColView = Backbone.View.extend({
+          id         : "banner-id",
+          //because it is a list we define the tag as ul
+          tagName     : "ul",
+          className     : "banner",
+
+          events : {
+          },
+
+          initialize : function(){
+            //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
+            //Read more here: http://documentcloud.github.com/underscore/#bindAll
+            _.bindAll(this);
+            this.collection.bind('add', this.addItemHandler);
+
+          },
+
+          load : function(){
+
+            //here we do the AJAX Request to get our json file, also provide a success and error callbacks
+            this.collection.fetch({
+              add: true,
+              success: this.loadCompleteHandler,
+              error: this.errorHandler
+            });
+
+          },
+
+          //we arrived here one time per item in our list, so if we received 4 items we
+          //will arrive into this function 4 times
+          addItemHandler : function(model){
+            //model is an instance of RealWorldItemModel
+
+            var myItemView = new BannerView({model:model});
+            myItemView.render();
+            $(this.el).append(myItemView.el);
+
+          },
+
+          loadCompleteHandler : function(){
+            console.log('Awesome everything was loaded without errors!');
+            this.render();
+          },
+
+          errorHandler : function(){
+            throw "Error loading JSON file";
+          },
+
+          render : function(){
+
+            //we assign our element into the available dom element
+            $('#main').append($(this.el));
+
+            return this;
+          }
+        });
+        //Backbone code - end
+
+
+
+        // ARTICLE VIEW
+        //
+        //
+        var ArticleGroupView = Backbone.View.extend({
+          id         : "article-id",
+          //because it is a list we define the tag as ul
+          tagName     : "ul",
+          className     : "article",
+
+          events : {
+          },
+
+          initialize : function(){
+            //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
+            //Read more here: http://documentcloud.github.com/underscore/#bindAll
+            _.bindAll(this);
+            this.collection.bind('add', this.addItemHandler);
+
+          },
+
+          load : function(){
+            //here we do the AJAX Request to get our json file, also provide a success and error callbacks
+            this.render();
+
+          },
+
+          //we arrived here one time per item in our list, so if we received 4 items we
+          //will arrive into this function 4 times
+          addItemHandler : function(model){
+            //model is an instance of RealWorldItemModel
+
+            var myArticleView = new ArticleView({model:model});
+            myArticleView.render();
+            $(this.el).append(myArticleView.el);
+
+          },
+
+          loadCompleteHandler : function(){
+            console.log('Awesome everything was loaded without errors!');
+            this.render();
+          },
+
+          errorHandler : function(){
+            throw "Error loading JSON file";
+          },
+
+          render : function(){
+
+            var aModel;
+            for (var i=0; i < this.collection.length; i++) {
+              aModel = this.collection.models[i];
+              var myArticleView = new ArticleView({model:aModel});
+              myArticleView.render();
+              $(this.el).append(myArticleView.el);
+            }
+
+            //we assign our element into the available dom element
+            $('#main').append($(this.el));
+
+            return this;
+          }
+        });
+
+
+//
+// Executing code
+//
+
+
+        //We create the instance of our collection:
+        var myCollection = new BannersCollection();
+        var ag = new FeaturedGroup();
+        ag.fetch(
+          {success: function() {
+            var display = new ArticleGroupView({collection: ag.main});
+            display.load();
+            var display2 = new ArticleGroupView({collection: ag.aside});
+            display2.load();
+          }}
+          );
+        var test = new BannerColView({collection: myCollection});
+        test.load();
+
+      })
+</script>
+</body>
+</html>
