@@ -1,5 +1,5 @@
 html{
-	width: 960px;
+	width: 960px; 
 	font-family: Arvo;
 	margin-left: auto;
 	margin-right: auto;
@@ -71,7 +71,9 @@ body{
 /*------------ main ------------*/
 
 #banner{
-	background-color: #cccccc
+	background-color: #cccccc;
+	padding: 10px;
+	margin-bottom: 20px;
 }
 
 #cta{
@@ -81,7 +83,8 @@ body{
 
 #bannerText{
 	text-align: center;
-	padding-bottom: 35px;
+	line-height: 0;
+	padding-bottom: 20px;
 }
 
 aside{
@@ -90,6 +93,7 @@ aside{
 }
 
 #aside1{
+	padding-top: 1px;
 	background-color: red;
 }
 
@@ -107,8 +111,28 @@ aside{
 	width: 384px;
 	float: right;
 	background-color: green;
+	text-align: left;
 }
 
 #opinion{
 	
+}
+
+/*-------test button-------*/
+.selected {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+#extend {
+	width: inherit;
+	height: 80px;
+	background-color: #cccccc;
+}
+
+#banner a {
+	display: block;
+	text-align: right;
+	text-decoration: none;
+	color: white;
 }
