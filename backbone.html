@@ -230,7 +230,6 @@
             //Read more here: http://documentcloud.github.com/underscore/#bindAll
             _.bindAll(this);
             this.collection.bind('add', this.addItemHandler);
-
           },
 
           load : function(){
@@ -281,12 +280,14 @@
           events : {
           },
 
-          initialize : function(){
+          str : '',
+
+          initialize : function(options){
             //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
             //Read more here: http://documentcloud.github.com/underscore/#bindAll
             _.bindAll(this);
             //this.collection.bind('add', this.addItemHandler);
-
+            this.str = options.strVar;
           },
 
           load : function(){
@@ -315,7 +316,7 @@
             }
 
             //we assign our element into the available dom element
-            $('#main').append($(this.el));
+            $(this.str).append($(this.el));
 
             return this;
           }
@@ -433,20 +434,20 @@
         var ag = new FeaturedGroup();
         ag.fetch(
           {success: function() {
-            var agv1 = new ArticleGroupView({collection: ag.main});
+            var agv1 = new ArticleGroupView({collection: ag.main, strVar: '#main'});
             agv1.load();
-            var agv2 = new ArticleGroupView({collection: ag.aside});
-            agv2.load();
+            //var agv2 = new ArticleGroupView({collection: ag.aside});
+            //agv2.load();
             //Put opinion and travel here.
           }}
           );
 
-        var bCollection = new BannersCollection();
-        var bcv = new BannerColView({collection: bCollection});
-        bcv.load();
-        var cCollection = new CategoryCollection();
-        var ccv = new CategoryColView({collection: cCollection});
-        ccv.load();
+        //var bCollection = new BannersCollection();
+        //var bcv = new BannerColView({collection: bCollection});
+        //bcv.load();
+        //var cCollection = new CategoryCollection();
+        //var ccv = new CategoryColView({collection: cCollection});
+        //ccv.load();
       })
 
 </script>
