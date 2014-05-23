@@ -15,7 +15,7 @@ body{
 }
 
 #header #topNav ul li{ 
-	font-size: 9pt;
+	font-size: 12px;
 	color: #cccccc;
 	list-style-type: none;
 	display: inline;
@@ -23,7 +23,7 @@ body{
 	
 #header i{
 	color: black;
-	font-size: 12pt;
+	font-size: 16px;
 }
 	
 #user{
@@ -36,7 +36,7 @@ body{
 }
 	
 #header #title{
-	font-size: 36pt;
+	font-size: 48px;
 	font-weight: bold;
 	color: #333333;
 	border-top: 1px #cccccc solid;
@@ -52,15 +52,16 @@ body{
 }
 
 #header #date{
-	font-size: 14pt;
+	font-size: 19px;
 	color: #333333;
 }
+
+/*-------- categories -----------*/
 .categories{
-	font-size: 14pt;
+	font-size: 19px;
 	color: #333333;
 	text-decoration: none;
 	text-align: center;
-	
 }
 
 .categories a{
@@ -68,6 +69,11 @@ body{
 	color: #333333;
 	padding: 23px;
 }
+
+.categories ul{
+	padding-left: 0px;
+}
+
 /*------------ main ------------*/
 
 #banner{
@@ -92,19 +98,32 @@ aside{
 	float: left
 }
 
-#aside1{
-	padding-top: 1px;
-	background-color: red;
-}
-
-#aside2{
-	background-color: blue;
-}
-
 #mainSection{
 	width: 384px;
 	float: left;
 	background-color: pink;
+}
+
+#vid {
+	background-color: black;
+	color: white;
+	text-align: center;
+	height: 200px;
+	width: inherit;
+}
+
+#vid p {
+	margin: auto;
+	line-height: 200px;
+}
+
+/*test article first paragraph*/
+#mainSection article p:first-of-type{
+	font-style: italic;
+}
+
+#mainSection article p:nth-child(2) {
+	font-weight: bold;
 }
 
 #rightSection{
@@ -114,8 +133,10 @@ aside{
 	text-align: left;
 }
 
-#opinion{
-	
+#opinion p:first-of-type{
+	font-style: italic;
+	font-size: 16px;
+	line-height: 15px;
 }
 
 /*-------test button-------*/

@@ -1,8 +1,4 @@
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
-  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
-
-  <script>
     _.originalBindAll = _.bindAll;
     _.bindAll = function (that) {
       var funcs = Array.prototype.slice.call(arguments, 1),
@@ -18,13 +14,6 @@
       else
         _.originalBindAll.apply(_, arguments);
     };
-  </script>
-
-
-
-  <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
-
-  <script>
 
       //Generic code starting our view when document is ready http://api.jquery.com/ready/
       $(function(){
@@ -132,7 +121,7 @@
 
 
         var ArticleView = Backbone.View.extend({
-          tagName: 'li',
+          tagName: 'article',
           template: null,
           events: {
           },
@@ -140,7 +129,7 @@
           initialize : function() {
             _.bindAll(this);
 
-            this.template = _.template('<strong><%= id%> <%= headLine %></strong> <br> <%= snippet %> <br> <%= fullStory %> <br> <strong> <%= location %> </strong>');
+            this.template = _.template('<%= headLine %> <br> <%= location %> <%= snippet %> <br>');
           },
 
           render : function(){
@@ -161,7 +150,7 @@
             _.bindAll(this);
 
             //later we will see complex template engines, but is the basic from underscore
-            this.template = _.template('<span>Name: <strong><%= id%></strong> - <%= message %> </span>');
+            this.template = _.template('<%= message %>');
 
           },
           render : function(){
@@ -171,27 +160,24 @@
         });
 
         var CategoryView = Backbone.View.extend({
-          tagName   : 'div',
+          tagName   : 'li',
           template   : null,
           events     : {
           },
 
-          initialize : function(){
+          initialize : function(options){
             //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
             //Read more here: http://documentcloud.github.com/underscore/#bindAll
             _.bindAll(this);
 
             //later we will see complex template engines, but is the basic from underscore
             var str = "#/category/" + this.model.get("id");
-            this.template = _.template('<strong><a href=' + str + '><%= displayName %></a></strong>');
-
+            this.template = _.template('<a href=' + str + '><%= displayName %></a>');
           },
           render : function(){
             $(this.el).html( this.template( this.model.toJSON() ) );
             return this;
           },
-            
-            
         });
 
         //We define the collection, associate the map for every item in the list
@@ -309,11 +295,14 @@
           events : {
           },
 
-          initialize : function(){
+          str : '',
+
+          initialize : function(options){
             //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
             //Read more here: http://documentcloud.github.com/underscore/#bindAll
             _.bindAll(this);
             this.collection.bind('add', this.addItemHandler);
+            this.str = options.strVal;
           },
 
           load : function(){
@@ -346,7 +335,7 @@
           render : function(){
 
             //we assign our element into the available dom element
-            //$('#main').append($(this.el));
+            $(this.str).append($(this.el));
 
             return this;
           }
@@ -415,7 +404,12 @@
         var app_router = new AppRouter;
         app_router.on('route:categoryRoute', function(id) {
         //needs to be <a href="#/category/id(the actual id)"
-        $('#main').empty();
+        $('#mainSection').hide();
+        $('#asideSection').hide();
+        $('#rightSection').hide();
+        $('#banner').hide();
+        $('#categoryMainSection').show();
+        $('#categoryAsideSection').show();
         var aURL = "http://html5news.herokuapp.com/articles/category/" + id;
         var cg = new CategoryGroup({urlVal : aURL});
         cg.fetch(
@@ -430,7 +424,14 @@
       app_router.on('route:defaultRoute', function(actions) {
         //Default
         //Featured Group executable goes here
+        $('#categoryMainSection').hide();
+        $('#categoryAsideSection').hide();
+        $('#catNav').empty();
         $('#main').empty();
+        $('#banner').show();
+        $('#mainSection').show();
+        $('#asideSection').show();
+        $('#rightSection').show();
         //We create the instance of our collection:
         var ag = new FeaturedGroup();
         ag.fetch(
@@ -451,12 +452,10 @@
         //var bcv = new BannerColView({collection: bCollection});
         //bcv.load();
         var cCollection = new CategoryCollection();
-        var ccv = new CategoryColView({collection: cCollection});
+        var ccv = new CategoryColView({collection: cCollection, strVal: '#catNav'});
         ccv.load();
       });
       Backbone.history.start();
 
         
       })
-
-</script>

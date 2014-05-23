@@ -2,12 +2,15 @@
 
 <html>
 	<head>
-<script type="text/javascript" src="http://backbonejs.org/backbone.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="http://underscorejs.org/underscore.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js">
+<script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="test.js"></script>
+
 
 <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'/>
 <link rel="stylesheet" type="text/css" href="csscode.css"/>
@@ -35,28 +38,25 @@
 				<div id="extend" style="display:none"></div>
 			</div>
 			
-			<aside>
-				<article id="aside1">
-					<h1>Title 1</h1>
-					<p>Article Content</p>
-				</article>
-				<article id="aside2">
-					<h1>Title 2</h1>
-					<p>Article Content</p>
-				</article>
+			<aside id="asideSection">
+
 			</aside>
-			
+			<!-- home page content-->
 			<section id="mainSection">
-				<video></video>
-				<article></article>
+				<div id="vid"><p>[adult swim]</p></div>
 			</section>
 			<div id="rightSection">
-				<p>testtt</p>
 			<section id="opinion"></section>
 			
 			<section id="travel"></section>
 			</div>
+
+			<!-- content page div -->
+			<section id="categoryMainSection"></section>
+			<section id="categoryAsideSection"></section>
 			
 		</main>
+		<script src="bb.js"></script>
 	</body>
+
 </html>
