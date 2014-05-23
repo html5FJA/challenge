@@ -99,12 +99,14 @@ body{
 	background-color: #cccccc;
 	padding: 10px;
 	margin-bottom: 20px;
-	height: 75px;
+	height: 60px;
 	-webkit-transition:1s;
+	-moz-transition:1s;
+	overflow: hidden;
 }
 
 #banner.banner.bannerClicked {
-	height: 150px;
+	height: 120px;
 }
 
 #cta{
@@ -121,11 +123,7 @@ body{
 	text-align: center;
 	line-height: 0;
 	padding-bottom: 20px;
-	margin-bottom: 50px;
-}
-
-#bannerText {
-	margin-bottom:50px;
+	margin-bottom: 30px;
 }
 
 /*-------Aside Section -------*/
