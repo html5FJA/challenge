@@ -15,7 +15,7 @@ body{
 }
 
 #header #topNav ul li{ 
-	font-size: 12px;
+	font-size: 9pt;
 	color: #cccccc;
 	list-style-type: none;
 	display: inline;
@@ -36,7 +36,7 @@ body{
 }
 	
 #header #title{
-	font-size: 48px;
+	font-size: 36pt;
 	font-weight: bold;
 	color: #333333;
 	border-top: 1px #cccccc solid;
@@ -44,16 +44,18 @@ body{
 	padding-bottom: 10px;
 	text-align: center;
 	line-height: 0px;
-}
-
-#header #title time{
-	text-align: center;
-	line-height: normal;
+   
+	text-shadow: 1px 0 #333333;
+	letter-spacing:2px;
+	font-weight:bold;
 }
 
 #header #date{
-	font-size: 19px;
-	color: #333333;
+	vertical-align: text-top;
+	font-size: 14px;
+	color: #cccccc;
+	font-weight: normal;
+	line-height: normal;
 }
 
 /*-------- categories -----------*/
@@ -97,12 +99,12 @@ body{
 	background-color: #cccccc;
 	padding: 10px;
 	margin-bottom: 20px;
-	height: 100px;
+	height: 75px;
 	-webkit-transition:1s;
 }
 
 #banner.banner.bannerClicked {
-	height: 200px;
+	height: 150px;
 }
 
 #cta{
@@ -119,6 +121,7 @@ body{
 	text-align: center;
 	line-height: 0;
 	padding-bottom: 20px;
+	margin-bottom: 50px;
 }
 
 /*-------Aside Section -------*/
@@ -130,10 +133,19 @@ aside {
 aside article p:first-of-type {
 	font-weight: bold;
 	font-style: italic;
-	font-size: 25px;
+	font-size: 15px;
 	line-height: 20px;
 	color: #333333;
 	margin: 0px;
+
+	text-shadow: 1px 0 #333333;
+	letter-spacing:2px;
+	font-weight:bold;
+}
+
+aside article:first-of-type {
+	border-bottom: 1px solid #cccccc;
+	margin-bottom: 10px;
 }
 
 
@@ -142,10 +154,9 @@ aside article p:first-of-type {
 #mainSection{
 	width: 384px;
 	float: left;
-	background-color: pink;
 }
 
-#vid {
+.vid {
 	background-color: black;
 	color: white;
 	text-align: center;
@@ -153,12 +164,12 @@ aside article p:first-of-type {
 	width: inherit;
 }
 
-#vid p {
+.vid p {
 	margin: auto;
 	line-height: 200px;
 }
 
-/*test article first paragraph*/
+/*--- test article first paragraph ---*/
 #mainSection article p:first-of-type{
 	font-style: italic;
 }
@@ -188,8 +199,9 @@ aside article p:first-of-type {
 }
 
 #opinion article {
-	width: 50%;
+	width: 44%;
 	float:left;
+	padding: 10px;
 }
 
 #travel span {
@@ -226,4 +238,52 @@ aside article p:first-of-type {
 	text-align: right;
 	text-decoration: none;
 	color: white;
+}
+
+/*-------- Content ----------*/
+
+#categoryMainSection{
+	width: 60%;
+	border-right: 1px solid #cccccc;
+	float: left;
+}
+
+#categoryMainSection ul{
+	padding-left: 0px;
+}
+
+#categoryMainSection article{
+	font-size: 13px;
+	line-height: 15px;
+	color: #333333;
+	padding-right: 20px;
+}
+
+#categoryMainSection article p:first-of-type{
+	font-weight: bold;
+	font-style: italic;
+	font-size: 26px;
+	line-height: 28px;
+}
+
+#categoryAsideSection ul{
+	padding-left: 20px;
+}
+
+#categoryAsideSection{
+	float: left;
+	width: 39%;
+}
+
+#categoryAsideSection article{
+	font-size: 12px;
+	line-height: 15px;
+	color: #666666;
+}
+
+#categoryAsideSection article p:first-of-type {
+	font-style: italic;
+	font-size: 16px;
+	line-height: 18px;
+	color: #666666
 }
