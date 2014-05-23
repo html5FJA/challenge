@@ -166,7 +166,13 @@
 
             //later we will see complex template engines, but is the basic from underscore
             var id = this.model.get("id");
-            var temp = '<h3 id=bannerText' + id + ' style="text-align:center;"><%= message %></h3>';
+            var temp = '';
+            if (id == 2) {
+              temp = '<h3 id=bannerText' + id + ' style="text-align:center;"><%= message %></h3>';
+            }
+            else {
+              temp = '<h3 id=bannerText' + id + ' style="text-align:center;"><%= message %></h3>';
+            }
             this.template = _.template(temp);
           },
           render : function(){
@@ -202,8 +208,8 @@
         var BannerColView = Backbone.View.extend({
           id         : "banner-id",
           //because it is a list we define the tag as ul
-          tagName     : "p",
-          className     : "banner",
+          tagName     : "div",
+          //className     : "banner",
 
           events : {
           },
@@ -234,7 +240,7 @@
           addItemHandler : function(model){
             var myItemView = new BannerView({model:model});
             myItemView.render();
-            $(this.el).append(myItemView.el);
+            $(this.str).append(myItemView.el);
 
           },
 
@@ -249,7 +255,7 @@
           render : function(){
 
             //we assign our element into the available dom element
-            $(this.str).append($(this.el));
+            //$(this.str).append($(this.el));
 
             return this;
           }

@@ -93,12 +93,14 @@ body{
 
 /*------------ main ------------*/
 
-#banner {
+.banner {
 	background-color: #cccccc;
 	padding: 10px;
 	margin-bottom: 20px;
-	height: 100px;
+	height: 50px;
+	-moz-transition:1s;
 	-webkit-transition:1s;
+	overflow:hidden;
 }
 
 #banner.banner.bannerClicked {
@@ -113,6 +115,10 @@ body{
 #ctaUP{
 	color: white;
 	text-align: right;
+}
+
+#banner-id {
+	height:inherit;
 }
 
 #bannerText{
