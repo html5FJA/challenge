@@ -35,7 +35,9 @@
             location : '',
             nsfw : '',
             category : '',
-            relatedArticleIds : ''
+            relatedArticleIds : '',
+            hasVideoPlaceholder : '',
+            numberOfImages : ''
           }
         });
 
@@ -129,7 +131,19 @@
           initialize : function() {
             _.bindAll(this);
 
+          if (this.model.get("hasVideoPlaceholder") == true){
+            console.log("true");
+            this.template = _.template('<div class="vid"><p>[ video ]</p></div><p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
+            }
+          else if (this.model.get("numberOfImages") == 1){
+            this.template = _.template('<div class="imagePlace"><p>[ photo ]</p></div><p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
+          }
+          else if (this.model.get("numberOfImages") == 2){
+            this.template = _.template('<div class="imagePlace"><p>[ photo ]</p></div><div class="imagePlace"><p>[ photo ]</p></div><p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
+          }
+          else{
             this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= snippet %> </p>');
+             }
           },
 
           render : function(){
@@ -139,7 +153,8 @@
         });
 
         var BannerView = Backbone.View.extend({
-          tagName   : 'li',
+          id : 'bannerText',
+          tagName   : 'p',
           template   : null,
           events     : {
           },
@@ -150,8 +165,9 @@
             _.bindAll(this);
 
             //later we will see complex template engines, but is the basic from underscore
-            this.template = _.template('<%= message %>');
-
+            var id = this.model.get("id");
+            var temp = '<h3 id=bannerText' + id + ' style="text-align:center;"><%= message %></h3>';
+            this.template = _.template(temp);
           },
           render : function(){
             $(this.el).html( this.template( this.model.toJSON() ) );
@@ -186,17 +202,20 @@
         var BannerColView = Backbone.View.extend({
           id         : "banner-id",
           //because it is a list we define the tag as ul
-          tagName     : "ul",
+          tagName     : "p",
           className     : "banner",
 
           events : {
           },
 
-          initialize : function(){
+          str : '',
+
+          initialize : function(options){
             //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
             //Read more here: http://documentcloud.github.com/underscore/#bindAll
             _.bindAll(this);
             this.collection.bind('add', this.addItemHandler);
+            this.str = options.strVal;
           },
 
           load : function(){
@@ -230,7 +249,7 @@
           render : function(){
 
             //we assign our element into the available dom element
-            $('#main').append($(this.el));
+            $(this.str).append($(this.el));
 
             return this;
           }
@@ -408,6 +427,9 @@
         $('#asideSection').hide();
         $('#rightSection').hide();
         $('#banner').hide();
+        $('#catNav').show();
+        $('#categoryMainSection').empty();
+        $('#categoryAsideSection').empty();
         $('#categoryMainSection').show();
         $('#categoryAsideSection').show();
         var aURL = "http://html5news.herokuapp.com/articles/category/" + id;
@@ -448,14 +470,13 @@
           }}
         );
 
-        //var bCollection = new BannersCollection();
-        //var bcv = new BannerColView({collection: bCollection});
-        //bcv.load();
-        var cCollection = new CategoryCollection();
-        var ccv = new CategoryColView({collection: cCollection, strVal: '#catNav'});
-        ccv.load();
+        var bCollection = new BannersCollection();
+        var bcv = new BannerColView({collection: bCollection, strVal: '#banner'});
+        bcv.load();
       });
       Backbone.history.start();
-
+      var cCollection = new CategoryCollection();
+      var ccv = new CategoryColView({collection: cCollection, strVal: '#catNav'});
+      ccv.load();
         
       })

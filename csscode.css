@@ -121,6 +121,10 @@ body{
 	padding-bottom: 20px;
 }
 
+#bannerText {
+	margin-bottom:50px;
+}
+
 /*-------Aside Section -------*/
 aside {
 	width: 192px;
