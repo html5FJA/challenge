@@ -129,7 +129,7 @@
           initialize : function() {
             _.bindAll(this);
 
-            this.template = _.template('<%= headLine %> <br> <%= location %> <%= snippet %> <br>');
+            this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= snippet %> </p>');
           },
 
           render : function(){

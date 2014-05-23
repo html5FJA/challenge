@@ -9,7 +9,7 @@
 
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="test.js"></script>
+<script src="banner.js"></script>
 
 
 <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'/>
@@ -19,20 +19,33 @@
 <title>Challenge - Home</title>
 	</head>
 	<body>
-		<script> 
-		$(function(){
-			$("#header").load("header.html"); 
-		});
-		</script>
+		<header id="header">
+			<nav id="topNav">
+				<ul>
+					<li id="sections"><i class="fa fa-bars"></i> SECTIONS </li>
+					<li id="search"><i class="fa fa-search"></i> SEARCH</li>
+					<li id="user">user<i class="fa fa-cogs"></i></li>
+				</ul>
+			</nav>
+			
+			<div id="title">
+				<p>CAPTECH.IO NEWS</p>
+				<time id="date"><%= date %></time>
+			</div>
+			
+			<nav id="catNav" class="categories">
+				
+			</nav>
+		</header>
 
 		<div id="header"></div>
 		
 		<main>
 
-			<div id="banner">
-				<a href="#" id="cta">Click to Expand <i class="fa fa-chevron-down"></i></a>
+			<div id="banner" class="banner">
+				<a id="cta">Click to Expand <i class="fa fa-chevron-down"></i></a>
 
-				<a href="#" id="ctaUP" style="display:none">Click to Collapse <i class="fa fa-chevron-up"></i></a>
+				<a id="ctaUP" style="display:none">Click to Collapse <i class="fa fa-chevron-up"></i></a>
 
 				<h2 id="bannerText"><%= bannerText %></h2>
 				<div id="extend" style="display:none"></div>
@@ -46,9 +59,14 @@
 				<div id="vid"><p>[adult swim]</p></div>
 			</section>
 			<div id="rightSection">
-			<section id="opinion"></section>
+			<section id="opinion">
+				<p id="OP_title">The Opinion Pages</p>
+			</section>
 			
-			<section id="travel"></section>
+			<section id="travel">
+				<span>TRAVEL</span>
+				<span>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>></span>
+			</section>
 			</div>
 
 			<!-- content page div -->

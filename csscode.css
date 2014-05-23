@@ -67,22 +67,50 @@ body{
 .categories a{
 	text-decoration: none;
 	color: #333333;
-	padding: 23px;
+	padding: 0px;
+	margin: 0px;
 }
 
 .categories ul{
 	padding-left: 0px;
+	list-style-type: none;
+}
+
+.categories li {
+	display: inline;
+	padding-left: 10px;
+	padding-right:10px;
+}
+
+/*-------- all articles -------*/
+.article {
+	padding: 0px;
+	margin: 0px;
+	padding: 10px;
+	padding-left: 0px;
+	padding-top: 0px;
 }
 
 /*------------ main ------------*/
 
-#banner{
+#banner {
 	background-color: #cccccc;
 	padding: 10px;
 	margin-bottom: 20px;
+	height: 100px;
+	-webkit-transition:1s;
+}
+
+#banner.banner.bannerClicked {
+	height: 200px;
 }
 
 #cta{
+	color: white;
+	text-align: right;
+}
+
+#ctaUP{
 	color: white;
 	text-align: right;
 }
@@ -93,10 +121,23 @@ body{
 	padding-bottom: 20px;
 }
 
-aside{
+/*-------Aside Section -------*/
+aside {
 	width: 192px;
-	float: left
+	float: left;
 }
+
+aside article p:first-of-type {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 25px;
+	line-height: 20px;
+	color: #333333;
+	margin: 0px;
+}
+
+
+/*--------Main Section--------*/
 
 #mainSection{
 	width: 384px;
@@ -126,17 +167,46 @@ aside{
 	font-weight: bold;
 }
 
+/*------ Opinions -----*/
 #rightSection{
 	width: 384px;
 	float: right;
-	background-color: green;
-	text-align: left;
+	
 }
 
-#opinion p:first-of-type{
+#OP_title {
 	font-style: italic;
+	font-size: 22px;
+	color: #333333;
+	text-align: center;
+	margin: 0px;
+}
+
+.artLocation {
+	font-weight: bolder;
+	text-transform: uppercase;
+}
+
+#opinion article {
+	width: 50%;
+	float:left;
+}
+
+#travel span {
+	font-weight: bold;
 	font-size: 16px;
-	line-height: 15px;
+	color: #333333;
+}
+
+#travel span:first-of-type {
+
+	font-weight: bolder;
+}
+
+#travel span:nth-of-type(2) {
+	font-size: 14px;
+	color: #cccccc;
+	vertical-align: text-bottom;
 }
 
 /*-------test button-------*/
