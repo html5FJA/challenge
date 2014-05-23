@@ -282,7 +282,6 @@
           load : function(){
             //here we do the AJAX Request to get our json file, also provide a success and error callbacks
             this.render();
-
           },
 
           loadCompleteHandler : function(){
@@ -356,7 +355,7 @@
           render : function(){
 
             //we assign our element into the available dom element
-            $('#main').append($(this.el));
+            //$('#main').append($(this.el));
 
             return this;
           }
@@ -371,12 +370,14 @@
           events : {
           },
 
-          initialize : function(){
+          str : '',
+
+          initialize : function(options){
             //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
             //Read more here: http://documentcloud.github.com/underscore/#bindAll
             _.bindAll(this);
             //this.collection.bind('add', this.addItemHandler);
-
+            this.str = options.strVar;
           },
 
           load : function(){
@@ -404,7 +405,7 @@
             }
 
             //we assign our element into the available dom element
-            $('#main').append($(this.el));
+            $(this.str).append($(this.el));
 
             return this;
           }
@@ -428,9 +429,9 @@
         var cg = new CategoryGroup({urlVal : aURL});
         cg.fetch(
          {success: function() {
-          var cg1 = new CategoryGroupView({collection: cg.main});
+          var cg1 = new CategoryGroupView({collection: cg.main, strVar: '#categoryMainSection'});
           cg1.load();
-          var cg2 = new CategoryGroupView({collection: cg.aside});
+          var cg2 = new CategoryGroupView({collection: cg.aside, strVar: '#categoryAsideSection'});
           cg2.load();
          }}
         );  
@@ -443,17 +444,21 @@
         var ag = new FeaturedGroup();
         ag.fetch(
           {success: function() {
-            var agv1 = new ArticleGroupView({collection: ag.main, strVar: '#main'});
+            var agv1 = new ArticleGroupView({collection: ag.main, strVar: '#mainSection'});
             agv1.load();
-            var agv2 = new ArticleGroupView({collection: ag.aside});
+            var agv2 = new ArticleGroupView({collection: ag.aside, strVar: '#asideSection'});
             agv2.load();
+            var agv3 = new ArticleGroupView({collection: ag.opinion, strVar: '#opinion'});
+            agv3.load();
+            var agv4 = new ArticleGroupView({collection: ag.travel, strVar: '#travel'});
+            agv4.load();
             //Put opinion and travel here.
           }}
-          );
+        );
 
-        var bCollection = new BannersCollection();
-        var bcv = new BannerColView({collection: bCollection});
-        bcv.load();
+        //var bCollection = new BannersCollection();
+        //var bcv = new BannerColView({collection: bCollection});
+        //bcv.load();
         var cCollection = new CategoryCollection();
         var ccv = new CategoryColView({collection: cCollection});
         ccv.load();
@@ -464,5 +469,3 @@
       })
 
 </script>
-</body>
-</html>
