@@ -19,7 +19,7 @@ body{
 	color: #cccccc;
 	list-style-type: none;
 	display: inline;
-	}
+}
 	
 #header i{
 	color: black;
@@ -175,12 +175,18 @@ aside article:first-of-type {
 	line-height: 200px;
 }
 
+#mainSection article p:first-of-type {
+	text-shadow: 1px 0 #333333;
+	letter-spacing:2px;
+	font-weight:bold;
+}
+
 /*--- test article first paragraph ---*/
 #mainSection article p:first-of-type{
 	font-style: italic;
 }
 
-#mainSection article p:nth-child(2) {
+#mainSection article p span:first-of-type {
 	font-weight: bold;
 }
 
@@ -204,27 +210,38 @@ aside article:first-of-type {
 	text-transform: uppercase;
 }
 
-#opinion article {
+#rightSection article {
 	width: 44%;
 	float:left;
 	padding: 10px;
 }
 
-#travel span {
+#rightSection span {
 	font-weight: bold;
 	font-size: 16px;
 	color: #333333;
 }
 
-#travel span:first-of-type {
-
+#rightSection span:first-of-type {
 	font-weight: bolder;
 }
 
-#travel span:nth-of-type(2) {
+#rightSection span:nth-of-type(2) {
 	font-size: 14px;
 	color: #cccccc;
 	vertical-align: text-bottom;
+}
+
+#travelName {
+	text-shadow: 1px 0 #333333;
+	letter-spacing:2px;
+	font-weight:bold;
+}
+
+#travel p:first-of-type {
+	text-shadow: 1px 0 #333333;
+	letter-spacing:2px;
+	font-weight:bold;
 }
 
 /*-------test button-------*/
