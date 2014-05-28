@@ -142,6 +142,7 @@ body{
 }
 
 /*-------Aside Section -------*/
+
 aside {
 	width: 192px;
 	float: left;
@@ -175,6 +176,7 @@ aside article:first-of-type p:nth-of-type(2) span:first-of-type {
 aside p:nth-of-type(2) {
 	font-size: 12.6px;
 }
+
 /*--------Main Section--------*/
 
 #mainSection{
@@ -206,12 +208,14 @@ aside p:nth-of-type(2) {
 	width: 80%;
 }
 
-#mainSection .imagePlace {
+#mainSection article:nth-of-type(3) p:nth-of-type(2) {
+	display: inline-block;
+	font-size: 12px;
+}
+
+#mainSection article:nth-of-type(3) p:nth-of-type(2) span:nth-of-type(2){
 	background-color: black;
 	color: white;
-	height: 70px;
-	width: 30%;
-	line-height: 70px;
 	text-align: center;
 }
 
@@ -220,6 +224,7 @@ aside p:nth-of-type(2) {
 }
 
 /*--- test article first paragraph ---*/
+
 #mainSection article p:first-of-type{
 	font-style: italic;
 }
@@ -280,12 +285,16 @@ aside p:nth-of-type(2) {
 	color: #333333;
 }
 
+#rightSection article p:first-of-type {
+	font-style: italic;
+}
+
 #rightSection span:first-of-type {
 	font-weight: bolder;
 }
 
 #rightSection span:nth-of-type(2) {
-	font-size: 14px;
+	font-size: 12px;
 	color: #cccccc;
 	vertical-align: text-bottom;
 }

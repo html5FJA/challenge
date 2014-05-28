@@ -141,7 +141,14 @@
                 this.template = _.template('<div class="vid"><p>[video]</p></div><p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
                 }
                 else if (this.model.get("numberOfImages") == 1){
-                  this.template = _.template('<p> <%= headLine %> </p> <div class="imagePlace"><p>[photo]</p></div> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
+                  var fStr = this.model.get("snippet");
+                  var front = '';
+                  var back = '';
+                  var loc = fStr.indexOf("football");
+                  front = fStr.substr(0, loc);
+                  back = fStr.substr(loc, fStr.length);
+                  var newStr = front + "<span class=\"imagePlace\">[photo] </span>" + back;
+                  this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span>' + newStr + '</p>');
                 }
                 else {
                   this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= snippet %> </p>');
@@ -160,10 +167,16 @@
                   
                   loc = newStr.indexOf("Shares");
                   front = newStr.substr(0, loc);
-                  back = newStr.substr(loc, fStr.length);
+                  back = newStr.substr(loc, newStr.length);
                   newStr = front + "<br><br>" + back;
 
-                  var temp = '<p> <%= headLine %> </p> <p> <span class="artLocation"><%= location %></span> ' + newStr + '</p>';
+                  var hStr = this.model.get("headLine");
+                  loc = hStr.indexOf(":");
+                  front = hStr.substr(0, loc);
+                  back = hStr.substr(loc, hStr.length);
+                  var newHeadStr = "<span class=\"artLocation\">" + front + "</span>" + back;
+
+                  var temp = '<p>' + newHeadStr + '</p> <p> <span class="artLocation"><%= location %></span> ' + newStr + '</p>';
                   this.template = _.template(temp);
                 }
                 else {
