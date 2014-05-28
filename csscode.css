@@ -9,6 +9,7 @@ body{
 	width: 960px;
 }
 
+
 /* -------- header ---------*/
 #header #topNav ul{
 	padding-left: 0px;
@@ -36,31 +37,31 @@ body{
 }
 	
 #header #title{
-	font-size: 36pt;
-	font-weight: bold;
+	font-size: 36px;
 	color: #333333;
 	border-top: 1px #cccccc solid;
 	border-bottom: 1px #cccccc solid;
 	padding-bottom: 10px;
 	text-align: center;
 	line-height: 0px;
-   
+  
+}
+
+#header #title p:first-of-type {
 	text-shadow: 1px 0 #333333;
-	letter-spacing:2px;
 	font-weight:bold;
 }
 
 #header #date{
 	vertical-align: text-top;
 	font-size: 14px;
-	color: #cccccc;
+	color: #333333;
 	font-weight: normal;
-	line-height: normal;
 }
 
 /*-------- categories -----------*/
 .categories{
-	font-size: 19px;
+	font-size: 14px;
 	color: #333333;
 	text-decoration: none;
 	text-align: center;
@@ -105,6 +106,10 @@ body{
 	overflow: hidden;
 }
 
+.banner i{
+	font-size: 15pt;
+}
+
 #banner.banner.bannerClicked {
 	height: 120px;
 }
@@ -112,11 +117,13 @@ body{
 #cta{
 	color: white;
 	text-align: right;
+	font-size: 12px;
 }
 
 #ctaUP{
 	color: white;
 	text-align: right;
+	font-size: 12px;
 }
 
 #banner-id {
@@ -124,10 +131,14 @@ body{
 }
 
 #bannerText{
+	font-size: 18px;
+	color: #333333;
 	text-align: center;
 	line-height: 0;
 	padding-bottom: 20px;
 	margin-bottom: 30px;
+
+	font-weight:bolder;
 }
 
 /*-------Aside Section -------*/
@@ -145,7 +156,6 @@ aside article p:first-of-type {
 	margin: 0px;
 
 	text-shadow: 1px 0 #333333;
-	letter-spacing:2px;
 	font-weight:bold;
 }
 
@@ -154,7 +164,17 @@ aside article:first-of-type {
 	margin-bottom: 10px;
 }
 
+aside .imagePlace {
+	display: none;
+}
 
+aside article:first-of-type p:nth-of-type(2) span:first-of-type {
+	display: none;
+}
+
+aside p:nth-of-type(2) {
+	font-size: 12.6px;
+}
 /*--------Main Section--------*/
 
 #mainSection{
@@ -168,6 +188,7 @@ aside article:first-of-type {
 	text-align: center;
 	height: 200px;
 	width: inherit;
+	font-style: normal;
 }
 
 .vid p {
@@ -177,8 +198,25 @@ aside article:first-of-type {
 
 #mainSection article p:first-of-type {
 	text-shadow: 1px 0 #333333;
-	letter-spacing:2px;
+	letter-spacing:-.09px;
 	font-weight:bold;
+}
+
+#mainSection article:nth-of-type(3) p:first-of-type {
+	width: 80%;
+}
+
+#mainSection .imagePlace {
+	background-color: black;
+	color: white;
+	height: 70px;
+	width: 30%;
+	line-height: 70px;
+	text-align: center;
+}
+
+#mainSection .imagePlace p{
+	margin-left: 0px;
 }
 
 /*--- test article first paragraph ---*/
@@ -188,6 +226,14 @@ aside article:first-of-type {
 
 #mainSection article p span:first-of-type {
 	font-weight: bold;
+}
+
+#mainSection article p:nth-of-type(2) {
+	font-size: 12px;
+}
+
+.vid {
+	font-style: normal;
 }
 
 /*------ Opinions -----*/
@@ -208,17 +254,29 @@ aside article:first-of-type {
 .artLocation {
 	font-weight: bolder;
 	text-transform: uppercase;
+	letter-spacing: -1px;
+	text-shadow: 1px 0 #333333;
+	font-size: 12px;
+}
+
+#opinion .imagePlace {
+	background-color: black;
+	color: white;
+	text-align: center;
+	height: 60px;
+	line-height: 60px;
 }
 
 #rightSection article {
 	width: 44%;
 	float:left;
 	padding: 10px;
+	font-size: 12px;
 }
 
 #rightSection span {
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 12px;
 	color: #333333;
 }
 
@@ -234,14 +292,33 @@ aside article:first-of-type {
 
 #travelName {
 	text-shadow: 1px 0 #333333;
-	letter-spacing:2px;
 	font-weight:bold;
 }
 
 #travel p:first-of-type {
 	text-shadow: 1px 0 #333333;
-	letter-spacing:2px;
 	font-weight:bold;
+}
+
+#titleDiv {
+	display: inline-block;
+	padding-left: 10px;
+}
+
+#travel .imagePlace {
+	background-color: black;
+	color: white;
+	text-align: center;
+	height: 80px;
+	line-height: 80px;
+}
+
+#travel article:nth-of-type(2) .imagePlace {
+	background-color: black;
+	color: white;
+	text-align: center;
+	height: 35px;
+	line-height: 35px;
 }
 
 /*-------test button-------*/

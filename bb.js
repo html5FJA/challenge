@@ -1,4 +1,4 @@
-
+//latest version 5.28.2014
     _.originalBindAll = _.bindAll;
     _.bindAll = function (that) {
       var funcs = Array.prototype.slice.call(arguments, 1),
@@ -18,9 +18,9 @@
       //Generic code starting our view when document is ready http://api.jquery.com/ready/
       $(function(){
 
-      
+
       //Move the these where execuatable is now
-      
+
 
         //Backbone code - begin
         //
@@ -74,7 +74,7 @@
             this.aside = new ArticlesCollection();
 
             this.url = options.urlVal;
-            
+
             this.on( "change", this.fetchCollections, this );
           },
 
@@ -128,22 +128,82 @@
           events: {
           },
 
-          initialize : function() {
+          initialize : function(options) {
             _.bindAll(this);
 
-          if (this.model.get("hasVideoPlaceholder") == true){
-            console.log("true");
-            this.template = _.template('<div class="vid"><p>[ video ]</p></div><p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
+            section = this.options.section;
+            if (section == "#asideSection"){
+                this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= snippet %> </p>');
+                }
+            else if ( section == "#mainSection") {
+                if (this.model.get("hasVideoPlaceholder") == true){
+                //console.log("true");
+                this.template = _.template('<div class="vid"><p>[video]</p></div><p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
+                }
+                else if (this.model.get("numberOfImages") == 1){
+                  this.template = _.template('<p> <%= headLine %> </p> <div class="imagePlace"><p>[photo]</p></div> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
+                }
+                else {
+                  this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= snippet %> </p>');
+                }
             }
-          else if (this.model.get("numberOfImages") == 1){
-            this.template = _.template('<div class="imagePlace"><p>[ photo ]</p></div><p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
-          }
-          else if (this.model.get("numberOfImages") == 2){
-            this.template = _.template('<div class="imagePlace"><p>[ photo ]</p></div><div class="imagePlace"><p>[ photo ]</p></div><p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
-          }
-          else{
-            this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= snippet %> </p>');
-             }
+            else if (section == "#opinion"){
+                  if (this.model.get("numberOfImages") == 1) {
+                  //This pulls the full story apart so we can insert an image between them. 
+                  var fStr = this.model.get("fullStory");
+                  var front = '';
+                  var back = '';
+                  var loc = fStr.indexOf("<br>");
+                  front = fStr.substr(0, loc + 4);
+                  back = fStr.substr(loc + 4, fStr.length);
+                  var newStr = front + "<div class=\"imagePlace\"><p>[photo]</p></div>" + back;
+                  
+                  loc = newStr.indexOf("Shares");
+                  front = newStr.substr(0, loc);
+                  back = newStr.substr(loc, fStr.length);
+                  newStr = front + "<br><br>" + back;
+
+                  var temp = '<p> <%= headLine %> </p> <p> <span class="artLocation"><%= location %></span> ' + newStr + '</p>';
+                  this.template = _.template(temp);
+                }
+                else {
+                  this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= fullStory %></p>');
+                }
+            }
+
+            else if (section == "#travel") {
+              if (this.model.get("numberOfImages") == 1){
+                this.template = _.template('<p> <%= headLine %> </p> <div class="imagePlace"><p>[photo]</p></div> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
+              }
+              else if (this.model.get("numberOfImages") == 2){
+                this.template = _.template('<p> <%= headLine %> </p> <div class="imagePlace"><p>[photo]</p></div><div class="imagePlace"><p>[photo]</p></div>');
+              }
+
+            }
+
+            else if (section == "#categoryMainSection"){
+              if (this.model.get("numberOfImages") == 1){
+                this.template = _.template('<p> <%= headLine %> </p> <div class="imagePlace"><p>[photo]</p></div> <p> <%= fullStory %> </p>');
+              }
+              else if (this.model.get("numberOfImages") == 2){
+                this.template = _.template('<p> <%= headLine %> </p> <div class="imagePlace"><p>[photo]</p></div> <div class="imagePlace"><p>[photo]</p></div><p> <%= fullStory %> </p>');
+              }
+              else {
+                this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= fullStory %> </p>');
+              }
+            }
+
+            else if (section == "#categoryAsideSection"){
+              if (this.model.get("numberOfImages") == 1){
+                this.template = _.template('<p> <%= headLine %> </p> <div class="imagePlace"><p>[photo]</p></div> <p><span class="artLocation"><%= location %></span> <%= fullStory %> </p>');
+              }
+              else if (this.model.get("numberOfImages") == 2){
+                this.template = _.template('<p> <%= headLine %> </p> <div class="imagePlace"><p>[photo]</p></div> <div class="imagePlace"><p>[photo]</p></div> <p><span class="artLocation"><%= location %></span> <%= fullStory %> </p>');
+              }
+              else {
+                this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= fullStory %> </p>');
+              }
+            }
           },
 
           render : function(){
@@ -299,7 +359,7 @@
             var aModel;
             for (var i=0; i < this.collection.length; i++) {
               aModel = this.collection.models[i];
-              var myArticleView = new ArticleView({model:aModel});
+              var myArticleView = new ArticleView({model:aModel, section: this.str});
               myArticleView.render();
               $(this.el).append(myArticleView.el);
             }
@@ -404,7 +464,7 @@
             var aModel;
             for (var i=0; i < this.collection.length; i++) {
               aModel = this.collection.models[i];
-              var myArticleView = new ArticleView({model:aModel});
+              var myArticleView = new ArticleView({model:aModel, section: this.str});
               myArticleView.render();
               $(this.el).append(myArticleView.el);
             }
@@ -447,15 +507,18 @@
           var cg2 = new CategoryGroupView({collection: cg.aside, strVar: '#categoryAsideSection'});
           cg2.load();
          }}
-        );  
+        );
       });
       app_router.on('route:defaultRoute', function(actions) {
         //Default
         //Featured Group executable goes here
         $('#categoryMainSection').hide();
         $('#categoryAsideSection').hide();
-        $('#catNav').empty();
-        $('#main').empty();
+        //$('#catNav').empty();
+        $('#mainSection').empty();
+        $('#asideSection').empty();
+        $('#opinion').empty();
+        $('#travel').empty();
         $('#banner').show();
         $('#mainSection').show();
         $('#asideSection').show();
@@ -484,5 +547,5 @@
       var cCollection = new CategoryCollection();
       var ccv = new CategoryColView({collection: cCollection, strVal: '#catNav'});
       ccv.load();
-        
+
       })
