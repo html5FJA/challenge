@@ -23,10 +23,36 @@
 				</ul>
 			</nav>
 			<div id="title">
-				<p>CAPTECH.IO NEWS</p>
+				<p><a href="index.html">CAPTECH.IO NEWS</p></a>
 				<time id="date">FRIDAY, MAY 23, 2014</time>
 			</div>
-			<nav id="catNav" class="categories"></nav>
+			<script>
+				
+				function reloadStylesheets() {
+					var queryString = '?reload=' + new Date().getTime();
+					$('link[rel="stylesheet"]').each(function () {
+						this.href = this.href.replace(/\?.*|$/, queryString);
+					});
+				}
+					var navStyle = function(){
+						$("#category-id a").each(function() {
+							$(this).closest("li").removeClass("active");
+						});
+						
+						var url = window.location.href;
+						
+						$("#category-id a").each(function() {
+							if(url == (this.href)) { 
+								$(this).closest("li").addClass("active");
+								
+							}
+						});
+					};
+			</script>
+			<nav id="catNav" onClick="navStyle()" class="categories">
+				
+			</nav>
+			
 		</header>
 
 		<div id="header"></div>

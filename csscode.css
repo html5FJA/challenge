@@ -31,6 +31,11 @@ body{
 	float: right;
 }
 
+#catNav .active{
+	font-weight: bolder;
+	text-shadow: 1px 0 #333333;
+}
+
 
 #sections{
 	padding-right: 15px;
@@ -45,6 +50,11 @@ body{
 	text-align: center;
 	line-height: 0px;
   
+}
+
+#header #title a{
+	text-decoration: none;
+	color: #333333;
 }
 
 #header #title p:first-of-type {
@@ -373,6 +383,14 @@ aside p:nth-of-type(2) {
 	font-style: italic;
 	font-size: 26px;
 	line-height: 28px;
+}
+
+#categoryMainSection .imagePlace{
+	background-color: black;
+	color: white;
+	text-align: center;
+	height: 275px;
+	line-height: 275px;
 }
 
 #categoryAsideSection ul{
