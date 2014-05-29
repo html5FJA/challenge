@@ -402,6 +402,14 @@ aside p:nth-of-type(2) {
 	width: 39%;
 }
 
+#categoryAsideSection .imagePlace{
+	background-color: black;
+	color: white;
+	text-align: center;
+	height: 100px;
+	line-height: 100px;
+}
+
 #categoryAsideSection article{
 	font-size: 12px;
 	line-height: 15px;
