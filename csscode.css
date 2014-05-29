@@ -163,7 +163,7 @@ aside {
 aside article p:first-of-type {
 	font-weight: bold;
 	font-style: italic;
-	font-size: 15px;
+	font-size: 19px;
 	line-height: 20px;
 	color: #333333;
 	margin: 0px;
@@ -186,7 +186,10 @@ aside article:first-of-type p:nth-of-type(2) span:first-of-type {
 }
 
 aside p:nth-of-type(2) {
-	font-size: 12.6px;
+	font-size: 12px;
+	line-height: 15px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 /*--------Main Section--------*/
@@ -232,7 +235,6 @@ aside p:nth-of-type(2) {
 
 	height: 80px;
 
-	line-height: 80px;
 	position: relative;
 	bottom: 80px;
 	width: 80px;
@@ -246,6 +248,7 @@ aside p:nth-of-type(2) {
 
 #mainSection article p:first-of-type{
 	font-style: italic;
+	margin-bottom: 0px;
 }
 
 #mainSection article p span:first-of-type {
@@ -254,6 +257,8 @@ aside p:nth-of-type(2) {
 
 #mainSection article p:nth-of-type(2) {
 	font-size: 12px;
+	margin-top: 5px;
+	margin-bottom: 5px; 
 }
 
 .vid {
@@ -306,6 +311,12 @@ aside p:nth-of-type(2) {
 
 #rightSection article p:first-of-type {
 	font-style: italic;
+	margin:0px;
+}
+
+#rightSection article p:nth-of-type(2){
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 #rightSection span:first-of-type {
@@ -339,6 +350,16 @@ aside p:nth-of-type(2) {
 	text-align: center;
 	height: 80px;
 	line-height: 80px;
+}
+
+#travel .imagePlace:first-of-type {
+	background-color: black;
+	color: white;
+	text-align: center;
+	height: 80px;
+	line-height: 80px;
+	margin-bottom: 10px;
+	margin-top: 5px;
 }
 
 #travel article:nth-of-type(2) .imagePlace {
