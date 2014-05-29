@@ -272,8 +272,6 @@ aside p:nth-of-type(2) {
 	font-size: 10px;
 }
 
-/*--- test article first paragraph ---*/
-
 #mainSection article p:first-of-type{
 	font-style: italic;
 	margin-bottom: 0px;
@@ -297,7 +295,8 @@ aside p:nth-of-type(2) {
 	font-style: normal;
 }
 
-/*------ Opinions -----*/
+/*------------ Opinions ------------*/
+
 #rightSection{
 	width: 384px;
 	float: right;
@@ -421,7 +420,7 @@ aside p:nth-of-type(2) {
 	line-height: 35px;
 }
 
-/*-------test button-------*/
+/*------------- test button -----------*/
 
 #banner a {
 	display: block;
