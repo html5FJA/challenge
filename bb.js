@@ -140,19 +140,7 @@
                 this.template = _.template('<div class="vid"><p>[video]</p></div><p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%=snippet %> </p>');
                 }
                 else if (this.model.get("numberOfImages") == 1){
-                  var fStr = this.model.get("snippet");
-                  var front = '';
-                  var back = '';
-                  var loc = fStr.indexOf("football");
-                  if (loc == -1) {
-                    this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span>' + fStr + '</p>');
-                  }
-                  else {
-                    front = fStr.substr(0, loc);
-                    back = fStr.substr(loc, fStr.length);
-                    var newStr = front + "<span class=\"imagePlace\">[photo] </span>" + back;
-                    this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span>' + newStr + '</p>');
-                  }
+                  this.template = _.template('<p> <%= headLine %>  <div class=\"imagePlace\"><p>[photo]</p></div></p> <p><span class="artLocation"><%= location %></span> <%= snippet %> </p>');
                 }
                 else {
                   this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= snippet %> </p>');
@@ -281,8 +269,6 @@
             //later we will see complex template engines, but is the basic from underscore
             var str = "#/category/" + this.model.get("id");
             bold = options.bold;
-            console.log(str);
-            console.log(bold);
             if (bold == 1) {
               this.template = _.template('<a style="font-weight:bold;text-shadow:1px 0 #333333" href=' + str + '><%= displayName %></a></b>');
             }
