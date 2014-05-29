@@ -177,6 +177,8 @@ aside article:first-of-type {
 	margin-bottom: 10px;
 }
 
+
+
 aside .imagePlace {
 	display: none;
 }
@@ -219,29 +221,42 @@ aside p:nth-of-type(2) {
 	font-weight:bold;
 }
 
-#mainSection article:nth-of-type(3) p:first-of-type {
+/*#mainSection article:nth-of-type(3) p:first-of-type {
 	width: 80%;
-}
+}*/
 
 #mainSection article:nth-of-type(3) p:nth-of-type(2) {
 	display: inline-block;
-	font-size: 12px;
+	font-size: 10px;
+	margin: 0px;
 }
 
-#mainSection article:nth-of-type(3) p:nth-of-type(2) span:nth-of-type(2){
+#mainSection article:nth-of-type(3) div p {
 	background-color: black;
 	color: white;
 	text-align: center;
-
-	height: 80px;
-
+	height: 70px;
+	width: 70px;
+	top:5px;
 	position: relative;
-	bottom: 80px;
-	width: 80px;
+	float: right;
+	margin: 0px;
+	line-height: 70px;
+	font-size: 10px;
+
 }
 
 #mainSection .imagePlace p{
 	margin-left: 0px;
+}
+
+#mainSection article:nth-of-type(3) p:nth-of-type(2) {
+	display: none;
+}
+
+#mainSection article:nth-of-type(3) p:nth-of-type(3) {
+	margin-top: 5px;
+	font-size: 10px;
 }
 
 /*--- test article first paragraph ---*/
@@ -249,14 +264,18 @@ aside p:nth-of-type(2) {
 #mainSection article p:first-of-type{
 	font-style: italic;
 	margin-bottom: 0px;
+	font-size: 16px;
+
 }
 
 #mainSection article p span:first-of-type {
 	font-weight: bold;
+	padding-right: 5px;
+	font-size: 10px;
 }
 
 #mainSection article p:nth-of-type(2) {
-	font-size: 12px;
+	font-size: 10px;
 	margin-top: 5px;
 	margin-bottom: 5px; 
 }
@@ -274,7 +293,7 @@ aside p:nth-of-type(2) {
 
 #OP_title {
 	font-style: italic;
-	font-size: 22px;
+	font-size: 16px;
 	color: #333333;
 	text-align: center;
 	margin: 0px;
@@ -286,6 +305,7 @@ aside p:nth-of-type(2) {
 	letter-spacing: -1px;
 	text-shadow: 1px 0 #333333;
 	font-size: 12px;
+	padding-right: 5px;
 }
 
 #opinion .imagePlace {
@@ -296,42 +316,64 @@ aside p:nth-of-type(2) {
 	line-height: 60px;
 }
 
-#rightSection article {
-	width: 44%;
+#rightSection article:first-of-type {
+	width: 50%;
 	float:left;
-	padding: 10px;
-	font-size: 12px;
+	padding-top: 10px;
+	font-size: 10px;
+	line-height: 15px;
+}
+
+#rightSection article:nth-of-type(2) {
+	float: right;
+	width: 47%;
+	padding-top: 10px;
+	font-size: 10px;
+	line-height: 15px;
 }
 
 #rightSection span {
 	font-weight: bold;
-	font-size: 12px;
+	font-size: 10px;
 	color: #333333;
 }
 
 #rightSection article p:first-of-type {
 	font-style: italic;
 	margin:0px;
+	font-size: 12px;
 }
 
 #rightSection article p:nth-of-type(2){
 	margin-top: 5px;
 	margin-bottom: 5px;
+	font-size: 10px;
+	line-height: 15px;
+}
+
+#rightSection article p:nth-of-type(3){
+	display: none;
 }
 
 #rightSection span:first-of-type {
 	font-weight: bolder;
 }
 
-#rightSection span:nth-of-type(2) {
+#arrows {
 	font-size: 12px;
 	color: #cccccc;
 	vertical-align: text-bottom;
+	display: inline-block;
+	margin: 0px;
 }
 
 #travelName {
 	text-shadow: 1px 0 #333333;
 	font-weight:bold;
+	font-size: 12px;
+	display: inline-block;
+	margin: 0px;
+	margin-left: -10px;
 }
 
 #travel p:first-of-type {
