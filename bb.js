@@ -1,4 +1,6 @@
-//latest version 5.28.2014
+    //This short section prior to our main function contains the re-written form 
+    //of the bindAll function. This allows containers (i.e. view) to use this. to refer
+    //to themselves and easily access the model throughout execution.
     _.originalBindAll = _.bindAll;
     _.bindAll = function (that) {
       var funcs = Array.prototype.slice.call(arguments, 1),
@@ -17,11 +19,6 @@
 
       //Generic code starting our view when document is ready http://api.jquery.com/ready/
       $(function(){
-
-
-      //Move the these where execuatable is now
-
-
         //Backbone code - begin
         //
         // All Model Declarations (Article, Banner, FeaturedGroup)
@@ -84,6 +81,7 @@
           }
         });
 
+        //Simple models for Banner, Category
          var BannerModel = Backbone.Model.extend({
           defaults : {
             id   : '',
@@ -100,7 +98,7 @@
          });
 
 //
-//
+//      The collections
 //
 
         var ArticlesCollection = Backbone.Collection.extend({
@@ -121,7 +119,8 @@
 // All of the views (Article, Banner, )
 //
 
-
+        //Article View has some specific code to make the output look as it is supposed too.
+        //We use default templates so that this does not break if used with a different JSON set.
         var ArticleView = Backbone.View.extend({
           tagName: 'article',
           template: null,
@@ -145,10 +144,15 @@
                   var front = '';
                   var back = '';
                   var loc = fStr.indexOf("football");
-                  front = fStr.substr(0, loc);
-                  back = fStr.substr(loc, fStr.length);
-                  var newStr = front + "<span class=\"imagePlace\">[photo] </span>" + back;
-                  this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span>' + newStr + '</p>');
+                  if (loc == -1) {
+                    this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span>' + fStr + '</p>');
+                  }
+                  else {
+                    front = fStr.substr(0, loc);
+                    back = fStr.substr(loc, fStr.length);
+                    var newStr = front + "<span class=\"imagePlace\">[photo] </span>" + back;
+                    this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span>' + newStr + '</p>');
+                  }
                 }
                 else {
                   this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= snippet %> </p>');
@@ -161,23 +165,28 @@
                   var front = '';
                   var back = '';
                   var loc = fStr.indexOf("<br>");
-                  front = fStr.substr(0, loc + 4);
-                  back = fStr.substr(loc + 4, fStr.length);
-                  var newStr = front + "<div class=\"imagePlace\"><p>[photo]</p></div>" + back;
+                  if (loc == -1) {
+                    this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= fullStory %></p>');
+                  }
+                  else {
+                    front = fStr.substr(0, loc + 4);
+                    back = fStr.substr(loc + 4, fStr.length);
+                    var newStr = front + "<div class=\"imagePlace\"><p>[photo]</p></div>" + back;
+                    loc = newStr.indexOf("Shares");
+                    front = newStr.substr(0, loc);
+                    back = newStr.substr(loc, newStr.length);
+                    newStr = front + "<br><br>" + back;
+
+                    var hStr = this.model.get("headLine");
+                    loc = hStr.indexOf(":");
+                    front = hStr.substr(0, loc);
+                    back = hStr.substr(loc, hStr.length);
+                    var newHeadStr = "<span class=\"artLocation\">" + front + "</span>" + back;
+
+                    var temp = '<p>' + newHeadStr + '</p> <p> <span class="artLocation"><%= location %></span> ' + newStr + '</p>';
+                    this.template = _.template(temp);
+                  }
                   
-                  loc = newStr.indexOf("Shares");
-                  front = newStr.substr(0, loc);
-                  back = newStr.substr(loc, newStr.length);
-                  newStr = front + "<br><br>" + back;
-
-                  var hStr = this.model.get("headLine");
-                  loc = hStr.indexOf(":");
-                  front = hStr.substr(0, loc);
-                  back = hStr.substr(loc, hStr.length);
-                  var newHeadStr = "<span class=\"artLocation\">" + front + "</span>" + back;
-
-                  var temp = '<p>' + newHeadStr + '</p> <p> <span class="artLocation"><%= location %></span> ' + newStr + '</p>';
-                  this.template = _.template(temp);
                 }
                 else {
                   this.template = _.template('<p> <%= headLine %> </p> <p><span class="artLocation"><%= location %></span> <%= fullStory %></p>');
@@ -225,6 +234,7 @@
           }
         });
 
+        //This view inserts the appropriate text into the banner
         var BannerView = Backbone.View.extend({
           id : 'bannerText',
           tagName   : 'p',
@@ -254,11 +264,14 @@
           }
         });
 
+        //This is called when a particular category is clicked
         var CategoryView = Backbone.View.extend({
           tagName   : 'li',
           template   : null,
           events     : {
           },
+
+          bold : '',
 
           initialize : function(options){
             //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
@@ -267,7 +280,15 @@
 
             //later we will see complex template engines, but is the basic from underscore
             var str = "#/category/" + this.model.get("id");
-            this.template = _.template('<a href=' + str + '><%= displayName %></a>');
+            bold = options.bold;
+            console.log(str);
+            console.log(bold);
+            if (bold == 1) {
+              this.template = _.template('<a style="font-weight:bold;text-shadow:1px 0 #333333" href=' + str + '><%= displayName %></a></b>');
+            }
+            else {
+              this.template = _.template('<a href=' + str + '><%= displayName %></a>');
+            }
           },
           render : function(){
             $(this.el).html( this.template( this.model.toJSON() ) );
@@ -334,7 +355,7 @@
           }
         });
 
-        // ARTICLE VIEW
+        // View for sets of articles (featured contains mean, aside, opinion, and travel)
         var ArticleGroupView = Backbone.View.extend({
           id         : "article-id",
           //because it is a list we define the tag as ul
@@ -394,6 +415,8 @@
           },
 
           str : '',
+          id : '',
+          count : 0,
 
           initialize : function(options){
             //This is useful to bind(or delegate) the this keyword inside all the function objects to the view
@@ -401,6 +424,7 @@
             _.bindAll(this);
             this.collection.bind('add', this.addItemHandler);
             this.str = options.strVal;
+            this.id = options.catVal;
           },
 
           load : function(){
@@ -417,9 +441,25 @@
           //essentially hits for every model
           addItemHandler : function(model){
             //each model
-            var myItemView = new CategoryView({model:model});
-            myItemView.render();
-            $(this.el).append(myItemView.el);
+            if (this.id == 0) {
+              var myItemView = new CategoryView({model:model, bold: 0});
+              myItemView.render();
+              $(this.el).append(myItemView.el);
+            }
+            else {
+              this.count = this.count + 1;
+              console.log(this.count);
+              if (this.count == this.id) {
+                var myItemView = new CategoryView({model:model, bold: 1});
+                myItemView.render();
+                $(this.el).append(myItemView.el);
+              }
+              else {
+                var myItemView = new CategoryView({model:model, bold: 0});
+                myItemView.render();
+                $(this.el).append(myItemView.el);
+              }
+            }
           },
 
           loadCompleteHandler : function(){
@@ -439,6 +479,7 @@
           }
         });
 
+        //View for groups of categories. Will break down into specific CategoryViews
         var CategoryGroupView = Backbone.View.extend({
           id         : "categoryGroup-id",
           //because it is a list we define the tag as ul
@@ -490,9 +531,7 @@
         });
 
 
-//
-// Executing code
-//
+        //Routing Section that displays the correct section tags based on the user's navigation
         var AppRouter = Backbone.Router.extend({
          routes: {
           "category/:id": "categoryRoute",
@@ -506,6 +545,7 @@
         $('#asideSection').hide();
         $('#rightSection').hide();
         $('#banner').hide();
+        $('#catNav').empty();
         $('#catNav').show();
         $('#categoryMainSection').empty();
         $('#categoryAsideSection').empty();
@@ -521,13 +561,16 @@
           cg2.load();
          }}
         );
+        var cCollection = new CategoryCollection();
+        var ccv = new CategoryColView({collection: cCollection, strVal: '#catNav', catVal: id});
+        ccv.load();
       });
       app_router.on('route:defaultRoute', function(actions) {
         //Default
         //Featured Group executable goes here
         $('#categoryMainSection').hide();
         $('#categoryAsideSection').hide();
-        //$('#catNav').empty();
+        $('#catNav').empty();
         $('#mainSection').empty();
         $('#asideSection').empty();
         $('#opinion').empty();
@@ -548,17 +591,16 @@
             agv3.load();
             var agv4 = new ArticleGroupView({collection: ag.travel, strVar: '#travel'});
             agv4.load();
-            //Put opinion and travel here.
           }}
         );
 
         var bCollection = new BannersCollection();
         var bcv = new BannerColView({collection: bCollection, strVal: '#banner'});
         bcv.load();
+        var cCollection = new CategoryCollection();
+        var ccv = new CategoryColView({collection: cCollection, strVal: '#catNav', catVal: 0});
+        ccv.load();
       });
       Backbone.history.start();
-      var cCollection = new CategoryCollection();
-      var ccv = new CategoryColView({collection: cCollection, strVal: '#catNav'});
-      ccv.load();
-
+      
       })

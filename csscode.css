@@ -10,7 +10,8 @@ body{
 }
 
 
-/* -------- header ---------*/
+/*---------- header ---------*/
+
 #header #topNav ul{
 	padding-left: 0px;
 }
@@ -69,7 +70,8 @@ body{
 	font-weight: normal;
 }
 
-/*-------- categories -----------*/
+/*---------- categories -----------*/
+
 .categories{
 	font-size: 14px;
 	color: #333333;
@@ -95,7 +97,7 @@ body{
 	padding-right:10px;
 }
 
-/*-------- all articles -------*/
+/*-------- all articles ---------*/
 .article {
 	padding: 0px;
 	margin: 0px;
@@ -104,7 +106,7 @@ body{
 	padding-top: 0px;
 }
 
-/*------------ main ------------*/
+/*------------ main -------------*/
 
 .banner {
 	background-color: #cccccc;
@@ -147,7 +149,7 @@ body{
 	line-height: 0;
 	padding-bottom: 20px;
 	margin-bottom: 30px;
-
+	font-style: italic;
 	font-weight:bolder;
 }
 
@@ -227,6 +229,13 @@ aside p:nth-of-type(2) {
 	background-color: black;
 	color: white;
 	text-align: center;
+
+	height: 80px;
+
+	line-height: 80px;
+	position: relative;
+	bottom: 80px;
+	width: 80px;
 }
 
 #mainSection .imagePlace p{
@@ -385,6 +394,11 @@ aside p:nth-of-type(2) {
 	line-height: 28px;
 }
 
+#categoryMainSection article .imagePlace p {
+	line-height: 275px;
+}
+
+
 #categoryMainSection .imagePlace{
 	background-color: black;
 	color: white;
@@ -421,4 +435,10 @@ aside p:nth-of-type(2) {
 	font-size: 16px;
 	line-height: 18px;
 	color: #666666
+}
+
+
+#categoryAsideSection article .imagePlace p {
+	line-height: 100px;
+	color: white;
 }
