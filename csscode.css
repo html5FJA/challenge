@@ -50,7 +50,6 @@ body{
 	padding-bottom: 10px;
 	text-align: center;
 	line-height: 0px;
-  
 }
 
 #header #title a{
@@ -101,7 +100,6 @@ body{
 .article {
 	padding: 0px;
 	margin: 0px;
-	padding: 10px;
 	padding-left: 0px;
 	padding-top: 0px;
 }
@@ -112,10 +110,17 @@ body{
 	background-color: #cccccc;
 	padding: 10px;
 	margin-bottom: 20px;
-	height: 60px;
+	height: 50px;
 	-webkit-transition:1s;
 	-moz-transition:1s;
 	overflow: hidden;
+	font-size: 16px;
+}
+
+.banner h3 {
+	font-size: 19px;
+	text-shadow: 1px 0 #333333;
+	font-weight:bold;
 }
 
 .banner i{
@@ -158,12 +163,12 @@ body{
 aside {
 	width: 192px;
 	float: left;
+	margin-right: 5px;
 }
 
 aside article p:first-of-type {
 	font-weight: bold;
 	font-style: italic;
-	font-size: 19px;
 	line-height: 20px;
 	color: #333333;
 	margin: 0px;
@@ -177,7 +182,9 @@ aside article:first-of-type {
 	margin-bottom: 10px;
 }
 
-
+aside article:first-of-type p:nth-of-type(2){
+	padding-bottom: 5px;
+}
 
 aside .imagePlace {
 	display: none;
@@ -215,10 +222,16 @@ aside p:nth-of-type(2) {
 	line-height: 200px;
 }
 
-#mainSection article p:first-of-type {
+#mainSection article:nth-of-type(2) p:first-of-type {
 	text-shadow: 1px 0 #333333;
 	letter-spacing:-.09px;
-	font-weight:bold;
+	margin-top: 5px;
+}
+
+#mainSection article:nth-of-type(3) p:first-of-type{
+	text-shadow: 1px 0 #333333;
+	letter-spacing:-.09px;
+	margin-top: 5px;
 }
 
 /*#mainSection article:nth-of-type(3) p:first-of-type {
@@ -237,7 +250,7 @@ aside p:nth-of-type(2) {
 	text-align: center;
 	height: 70px;
 	width: 70px;
-	top:5px;
+	top:1px;
 	position: relative;
 	float: right;
 	margin: 0px;
@@ -288,7 +301,7 @@ aside p:nth-of-type(2) {
 #rightSection{
 	width: 384px;
 	float: right;
-	
+	margin-right: -10px;
 }
 
 #OP_title {
@@ -302,7 +315,6 @@ aside p:nth-of-type(2) {
 .artLocation {
 	font-weight: bolder;
 	text-transform: uppercase;
-	letter-spacing: -1px;
 	text-shadow: 1px 0 #333333;
 	font-size: 12px;
 	padding-right: 5px;
@@ -321,7 +333,6 @@ aside p:nth-of-type(2) {
 	float:left;
 	padding-top: 10px;
 	font-size: 10px;
-	line-height: 15px;
 }
 
 #rightSection article:nth-of-type(2) {
@@ -329,7 +340,6 @@ aside p:nth-of-type(2) {
 	width: 47%;
 	padding-top: 10px;
 	font-size: 10px;
-	line-height: 15px;
 }
 
 #rightSection span {
@@ -348,10 +358,9 @@ aside p:nth-of-type(2) {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	font-size: 10px;
-	line-height: 15px;
 }
 
-#rightSection article p:nth-of-type(3){
+#rightSection article p:nth-of-type(3) {
 	display: none;
 }
 
@@ -413,16 +422,6 @@ aside p:nth-of-type(2) {
 }
 
 /*-------test button-------*/
-.selected {
-	padding-top: 30px;
-	padding-bottom: 30px;
-}
-
-#extend {
-	width: inherit;
-	height: 80px;
-	background-color: #cccccc;
-}
 
 #banner a {
 	display: block;
@@ -431,7 +430,7 @@ aside p:nth-of-type(2) {
 	color: white;
 }
 
-/*-------- Content ----------*/
+/*----------- Content Page -------------*/
 
 #categoryMainSection{
 	width: 60%;
@@ -499,7 +498,6 @@ aside p:nth-of-type(2) {
 	line-height: 18px;
 	color: #666666
 }
-
 
 #categoryAsideSection article .imagePlace p {
 	line-height: 100px;
